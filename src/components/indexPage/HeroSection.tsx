@@ -1,22 +1,16 @@
-import Image from "next/image";
 import React from "react";
 
 export function HeroSection() {
   return (
-    <div className="relative md:bg-heroBGLG bg-heroBGSM bg-contain md:bg-auto bg-no-repeat bg-center w-screen h-max flex justify-start">
-      <div className="relative pt-[19.2em] h-full w-full">
-        <img
-          src="/assets/icons/HeroBGLG.png"
-          className="h-max object-contain w-full invisible"
-          alt=""
-        />
-        <img
-          src="/assets/icons/HeroBGSM.png"
-          className="md:hidden object-contain h-max w-full invisible"
-          alt=""
-        />
+    <div className="">
+      <div className=" flex flex-col items-center sm:bg-heroBGLG bg-heroBGSM h-[320px] sm:h-[600px] bg-contain sm:bg-auto w-full bg-no-repeat bg-scroll bg-center bg-bottom">
+        <h1 className="flex items-center text-[52px] font-bold pb-[1.1em] mt-[309px]">
+          Stake to Vote, Get More Rewards
+        </h1>
+        <button className="px-10 py-4 font-roboto leading-4 bg-secondary-beta hover:bg-secondary-beta/90 text-base text-[17px] flex justify-center items-center rounded-full font-bold">
+          Stake Now
+        </button>
       </div>
-      <div className=" absolute top-0 h-full w-full"></div>
     </div>
   );
 }

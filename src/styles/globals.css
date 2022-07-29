@@ -2,9 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+    padding: 0%;
+    margin: 0%;
+    box-sizing: border-box;
+}
 
 @layer components {
     #__next, body, html {
-        @apply h-full w-full !bg-primary-alfa;
+        @apply h-full w-full !bg-primary-alfa font-barlow;
     }
 }

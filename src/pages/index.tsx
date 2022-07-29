@@ -1,13 +1,8 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { HeroSection } from "../components";
+import { Features, HeroSection } from "../components";
+import FAQ from "../components/indexPage/FAQ";
 import { trpc } from "../utils/trpc";
-
-type TechnologyCardProps = {
-  name: string;
-  description: string;
-  documentation: string;
-};
 
 const Home: NextPage = () => {
   const hello = trpc.useQuery(["example.hello", { text: "from tRPC" }]);
@@ -20,8 +15,10 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="h-full w-full">
+      <main className="min-h-[calc(-320px_+_100vh)] h-auto w-full text-white text-base duration-500 transition-all ">
         <HeroSection />
+        <Features />
+        <FAQ />
       </main>
     </>
   );
