@@ -3,6 +3,7 @@ import { HiOutlineMenu } from "react-icons/hi";
 import { XIcon } from "@heroicons/react/solid";
 import React, { useContext, useState } from "react";
 import { IsSideNavOpen } from "../../pages";
+import { ConnectWalletBtn } from "../utils";
 
 export function Navbar() {
   const { isSideNavOpen, setSideNavOpen } = useContext(IsSideNavOpen);
@@ -18,7 +19,7 @@ export function Navbar() {
           <Navigations />
         </div>
       </div>
-      <CTAButton />
+      <ConnectWalletBtn />
     </div>
   );
 }
@@ -42,21 +43,7 @@ export function Navigations() {
   );
 }
 
-function CTAButton() {
-  return (
-    <div className="scale-75 md:scale-100 border border-secondary-alfa h-max my-auto rounded-full py-2 px-4 flex justify-center items-center text-secondary-alfa min-w-max">
-      <Image
-        src="/assets/icons/ConnectWalletIcon.png"
-        height={20}
-        width={20}
-        alt="Wallet Icon"
-      />
-      <span className="ml-2 text-sm mr-5 font-medium tracking-wide ">
-        Connect Wallet
-      </span>
-    </div>
-  );
-}
+
 
 function MobileResponsive() {
   const [isOpen, setOpen] = useState<Boolean>(false);

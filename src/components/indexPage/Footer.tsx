@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React, { FC } from "react";
-import { DisclosureFooter } from "../utils/DisclosureFooter";
+import { DisclosureFooter } from "../utils";
 
 export function Footer() {
   return (

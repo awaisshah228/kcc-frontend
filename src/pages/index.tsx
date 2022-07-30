@@ -24,13 +24,13 @@ export const IsSideNavOpen = createContext<{
 const Home: NextPage = () => {
   const [isSideNavOpen, setSideNavOpen] = useState<Boolean>(false);
   const hello = trpc.useQuery(["example.hello", { text: "from tRPC" }]);
-  console.log(isSideNavOpen);
+  // console.log(isSideNavOpen);
 
   return (
     <div className="h-full w-full">
       <Head>
-        <title>KCC Staking | Buy KCS to Vote | KuCoin Community Chain</title>
-        <meta name="description" content="KCC Staking | Buy KCS to Vote | KuCoin Community Chain" />
+        <title>EGC Staking | Buy KCS to Vote | KuCoin Community Chain</title>
+        <meta name="description" content="EGC Staking | Buy KCS to Vote | KuCoin Community Chain" />
       </Head>
       {isSideNavOpen ? <SideNavbar /> : ""}
       <main className={`${isSideNavOpen ? "overflow-y-hidden h-full opacity-4 ": "h-auto"} z-0 min-h-[calc(-320px_+_100vh)]  w-full text-white text-base duration-500 transition-all `}>

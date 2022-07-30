@@ -6,7 +6,7 @@ export default function FAQ() {
     <div className="py-[5em] flex flex-col items-center">
       <div className="text-center w-full text-4xl font-bold">FAQ</div>
       <div className="px-2 mt-14 mb-10 w-full flex items-center flex-col space-y-4">
-        <DisclosureFAQ key={1} {...{FAQData}} />
+        <DisclosureFAQ key={1} {...{ FAQData }} />
       </div>
       <div className="text-base font-roboto">More</div>
     </div>

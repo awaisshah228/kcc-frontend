@@ -4,9 +4,14 @@ import type { AppRouter } from "../server/router";
 import type { AppType } from "next/dist/shared/lib/utils";
 import superjson from "superjson";
 import "../styles/globals.css";
+import { Web3ConnectorConfig } from "../components";
 
 const MyApp: AppType = ({ Component, pageProps }) => {
-  return <Component {...pageProps} />;
+  return (
+    <Web3ConnectorConfig>
+      <Component {...pageProps} />
+    </Web3ConnectorConfig>
+  );
 };
 
 const getBaseUrl = () => {
