@@ -10,7 +10,7 @@ export function Navbar() {
     <div
       className={`${
         isSideNavOpen ? "opacity-30 " : ""
-      } relative lg:absolute top-0 w-full flex justify-between pl-2 pr-8 lg:px-[5.4em]`}
+      } relative lg:absolute top-0 w-full flex justify-between items-center px-0 pl-2 md:pl-2 md:pr-8 lg:px-[5.4em]`}
     >
       <div className="flex space-x-16 scale-95">
         <Logo />
@@ -69,7 +69,7 @@ function MobileResponsive() {
     setSideNavOpen(isOpen);
   }
   return (
-    <div className="lg:hidden text-secondary-alfa ml-3 mr-2 md:mr-4 text-2xl">
+    <div className="lg:hidden text-secondary-alfa ml-3 mr-2 md:mr-4 text-2xl h-full flex items-center">
       <button
         onClick={() => {
           setOpen(!isOpen);
