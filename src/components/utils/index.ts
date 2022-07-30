@@ -1,1 +1,1 @@
-export * from "./DisclosureAtom"
+export * from "./DisclosureFAQ"

@@ -4,7 +4,7 @@ import React from "react";
 export function Features() {
   return (
     <div className=" pt-[140px] pb-[80px] w-full h-auto flex flex-col justify-center items-center space-y-[120px]">
-      <div className="font-bold text-4xl">
+      <div className="font-bold max-w-[250px] text-center text-xl lg:text-4xl">
         Stake, Vote and get rewards in 4 steps
       </div>
       <div className="space-y-4 lg:space-y-0  flex justify-center flex-col lg:flex-row flex-wrap px-10">
