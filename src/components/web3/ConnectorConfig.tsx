@@ -27,11 +27,11 @@ export function Web3ConnectorConfig({ children }: PropsWithChildren) {
     <WagmiConfig client={wagmiClient}>
       <RainbowKitProvider
         theme={darkTheme({
-          accentColor: "rgb(0, 208, 146)",
+          accentColor: "#FF9200",
           accentColorForeground: "white",
           borderRadius: "large",
           overlayBlur: "large",
-          fontStack: "system"
+          fontStack: "rounded",
         })}
         coolMode
         chains={chains}

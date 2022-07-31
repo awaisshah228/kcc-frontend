@@ -3,38 +3,38 @@
 @tailwind utilities;
 
 * {
-    padding: 0%;
-    margin: 0%;
-    box-sizing: border-box;
+  padding: 0%;
+  margin: 0%;
+  box-sizing: border-box;
 }
 
 @layer components {
 
-    #__next,
-    body,
-    html {
-        @apply h-full w-full !bg-primary-alfa font-barlow ;
-    }
+  #__next,
+  body,
+  html {
+    @apply h-full w-full !bg-primary-alfa font-barlow;
+  }
 
-    .footer > div {
-        @apply gap-[.5em] lg:gap-[1.1em];
-    }
+  .footer>div {
+    @apply gap-[.5em] lg:gap-[1.1em];
+  }
 
-    .footer-title {
-        @apply text-secondary-alfa capitalize text-lg font-normal opacity-100 mb-3;
-    }
+  .footer-title {
+    @apply text-secondary-alfa capitalize text-lg font-normal opacity-100 mb-3;
+  }
 
-    a.link  {
-        @apply text-white lg:text-[1.1em] font-normal text-xs;
-    }
+  .link {
+    @apply text-white lg:text-[1.1em] font-normal text-xs;
+  }
 }
 
 /* Custom Classes */
 /* - Bg-Gradient */
 .cta-card-gradient:hover {
-    background: linear-gradient(rgba(38, 187, 154, 0.04) 23.31%, rgb(39, 190, 154) 139.2%) repeat scroll 0% 0%;
+  background: linear-gradient(#ff910006 23.31%, #ff9100 139.2%) repeat scroll 0% 0%;
 }
 
 .mobile-responsive-drawer {
-    background: linear-gradient(180deg, #000000 0%, #044431 100%);
+  background: linear-gradient(180deg, #000000 0%, #FF9200 100%);
 }

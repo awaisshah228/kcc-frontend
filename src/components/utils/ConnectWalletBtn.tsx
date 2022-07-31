@@ -1,5 +1,7 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import Image from "next/image";
+import { IoWallet } from "react-icons/io5";
+
 export const ConnectWalletBtn = () => {
   return (
     <ConnectButton.Custom>
@@ -31,13 +33,14 @@ export const ConnectWalletBtn = () => {
                     onClick={openConnectModal}
                     type="button"
                   >
-                    <Image
+                    <IoWallet className="text-lg" />
+                    {/* <Image
                       src="/assets/icons/ConnectWalletIcon.png"
                       height={22}
                       width={25}
                       className="object-contain"
                       alt="Wallet Icon"
-                    />
+                    /> */}
                     <span className="flex">Connect Wallet</span>
                   </button>
                 );

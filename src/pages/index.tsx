@@ -30,10 +30,17 @@ const Home: NextPage = () => {
     <div className="h-full w-full">
       <Head>
         <title>EGC Staking | Buy KCS to Vote | KuCoin Community Chain</title>
-        <meta name="description" content="EGC Staking | Buy KCS to Vote | KuCoin Community Chain" />
+        <meta
+          name="description"
+          content="EGC Staking | Buy KCS to Vote | KuCoin Community Chain"
+        />
       </Head>
       {isSideNavOpen ? <SideNavbar /> : ""}
-      <main className={`${isSideNavOpen ? "overflow-y-hidden h-full opacity-4 ": "h-auto"} z-0 min-h-[calc(-320px_+_100vh)]  w-full text-white text-base duration-500 transition-all `}>
+      <main
+        className={`${
+          isSideNavOpen ? "overflow-y-hidden h-full opacity-4 " : "h-auto"
+        } z-0 min-h-[calc(-320px_+_100vh)]  w-full text-white text-base duration-500 transition-all `}
+      >
         <IsSideNavOpen.Provider value={{ isSideNavOpen, setSideNavOpen }}>
           <Navbar />
         </IsSideNavOpen.Provider>

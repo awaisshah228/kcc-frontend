@@ -7,7 +7,7 @@ export function HeroSection() {
         <h1 className="leading-normal flex items-center text-[32px] max-w-[300px] lg:max-w-full lg:text-[52px] font-bold lg:pb-[.5em]  pb-[16px] lg:mt-[282px] mt-[103px] lg:text-left text-center">
           Stake to Vote, Get More Rewards
         </h1>
-        <button className="px-8 lg:px-10 py-3 lg:py-4 font-roboto leading-4 bg-secondary-beta hover:bg-secondary-beta/90 text-base text-[17px] flex justify-center items-center rounded-full font-bold">
+        <button className="px-8 lg:px-10 py-3 lg:py-4 font-roboto leading-4 bg-secondary-alfa text-white hover:bg-secondary-alfa/80 text-base text-[17px] flex justify-center items-center rounded-full font-bold">
           Stake Now
         </button>
       </div>

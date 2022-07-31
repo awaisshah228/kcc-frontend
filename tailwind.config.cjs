@@ -7,7 +7,10 @@ module.exports = {
         primary: {
           alfa: "rgba(0,0,0)",
         },
-        secondary: { alfa: "#31D7A0", beta: "rgb(0, 208, 146)" },
+        secondary: {
+          alfa: "#ff9200", //"#31D7A0",
+          beta: "#ffa93a", //"rgb(0, 208, 146)",
+        },
         tertiary: { alfa: "rgb(29,29,29)" },
       },
       backgroundImage: {
