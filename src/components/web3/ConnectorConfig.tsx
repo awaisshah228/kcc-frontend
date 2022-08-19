@@ -1,6 +1,6 @@
 import "@rainbow-me/rainbowkit/styles.css";
 
-import React, { PropsWithChildren } from "react";
+import React, { PropsWithChildren, createContext } from "react";
 import {
   getDefaultWallets,
   RainbowKitProvider,
@@ -9,8 +9,18 @@ import {
 } from "@rainbow-me/rainbowkit";
 
 // import { Chain, getDefaultWallets } from '@rainbow-me/rainbowkit';
-import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
+import {
+  chain,
+  configureChains,
+  createClient,
+  WagmiConfig,
+  useContract,
+  useProvider,
+} from "wagmi";
 import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
+import { publicProvider } from "wagmi/providers/public";
+import validatorAbi from "../../constonts/abi/Validators.json";
+import constAddress from "../../constonts/address";
 
 // const kccChain: Chain = {
 //   id: 321,
@@ -54,8 +64,11 @@ const kccChainTest: Chain = {
 };
 
 const { provider, chains } = configureChains(
-  [kccChainTest],
-  [jsonRpcProvider({ rpc: (chain) => ({ http: chain.rpcUrls.default }) })]
+  [chain.ropsten, kccChainTest],
+  [
+    publicProvider(),
+    jsonRpcProvider({ rpc: (chain) => ({ http: chain.rpcUrls.default }) }),
+  ]
 );
 
 const { connectors } = getDefaultWallets({
@@ -68,8 +81,15 @@ const wagmiClient = createClient({
   connectors,
   provider,
 });
+export const ContractContext = createContext<any>(null);
 
 export function Web3ConnectorConfig({ children }: PropsWithChildren) {
+  const provider = useProvider();
+  const validatorContract = useContract({
+    addressOrName: constAddress.validatorAddress,
+    contractInterface: validatorAbi,
+    signerOrProvider: provider,
+  });
   return (
     <WagmiConfig client={wagmiClient}>
       <RainbowKitProvider
@@ -83,7 +103,9 @@ export function Web3ConnectorConfig({ children }: PropsWithChildren) {
         coolMode
         chains={chains}
       >
-        {children}
+        <ContractContext.Provider value={{ validatorContract }}>
+          {children}
+        </ContractContext.Provider>
       </RainbowKitProvider>
     </WagmiConfig>
   );
