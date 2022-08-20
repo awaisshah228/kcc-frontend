@@ -12,6 +12,7 @@ type DetailsSingle = {
   title: string;
   favIcon: string;
   image: string;
+  vote?: string;
 };
 
 const SingleValid = (props: typeSingleValid) => {
@@ -23,34 +24,31 @@ const SingleValid = (props: typeSingleValid) => {
         props.address
       );
       let url = details[0];
+      let resObj: DetailsSingle = { title: "", favIcon: "", image: "" };
       // console.log(url);
       await axios.get(url).then((res) => {
         console.log(res.data);
-        let resObj: DetailsSingle = { title: "", favIcon: "", image: "" },
-          //set a reference to the document that came back
-          $ = cheerio.load(res.data),
+
+        //set a reference to the document that came back
+        let $ = cheerio.load(res.data),
           //create a reference to the meta elements
           $title = $("head title").text(),
           $favIcon = $('link[rel="icon"]').attr("href"),
           $images = $("img"),
           $ogImage = $('meta[property="og:image"]').attr("content");
-
-        // $desc = $('meta[name="description"]').attr('content'),
-        // $kwd = $('meta[name="keywords"]').attr('content'),
-        // $ogTitle = $('meta[property="og:title"]').attr('content'),
-        // $ogImage = $('meta[property="og:image"]').attr('content'),
-        // $ogkeywords = $('meta[property="og:keywords"]').attr('content'),
-
         if ($title) {
           resObj.title = $title;
           resObj.favIcon = url + $favIcon!;
           resObj.image = $ogImage!;
         }
         console.log(resObj);
-        setdetails(resObj);
+        // setdetails(resObj);
       });
-      // let data = await getMetaData(url);
-      // console.log(data);
+      let votes = await contracts.validatorContract.getPoolvoterNumber(
+        props.address
+      );
+      console.log(BigInt(votes).toString(10));
+      setdetails({ ...resObj, vote: BigInt(votes).toString(10) });
     } catch (error) {
       console.log(error);
     }
@@ -69,7 +67,7 @@ const SingleValid = (props: typeSingleValid) => {
         {details?.title}
       </td>
       <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-        Wild
+        {details?.vote}
       </td>
       <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
         @twitter

@@ -2,11 +2,11 @@ import React, { useContext, useEffect, useState } from "react";
 import { useBalance, useAccount } from "wagmi";
 import { ContractContext } from "../web3";
 const DetailBar = () => {
-  const { address, isConnecting, isDisconnected } = useAccount();
+  const { address, isConnecting, isDisconnected, isConnected } = useAccount();
   const { data, isError, isLoading } = useBalance({
     addressOrName: address,
   });
-  const [balance, setBalance] = useState<string>();
+  const [balance, setBalance] = useState<string>("0");
   const [symbols, setSymobols] = useState<string>("");
   const contracts = useContext(ContractContext);
   const [activeValid, setActiveValid] = useState<number>();
@@ -37,7 +37,7 @@ const DetailBar = () => {
       <div>Total Votes:{totalVotes}</div>
       <div>
         Balance:
-        {balance} {symbols}
+        {isConnected ? balance : 0.0} {symbols}
       </div>
     </div>
   );
