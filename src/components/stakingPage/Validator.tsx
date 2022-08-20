@@ -70,7 +70,7 @@ const Validator = () => {
                 <tbody>
                   {Validators.map((value, key) => {
                     return (
-                      <tr className="bg-white">
+                      <tr className="bg-white" key={key}>
                         <SingleValid key={key} address={value} index={key} />
                       </tr>
                     );
