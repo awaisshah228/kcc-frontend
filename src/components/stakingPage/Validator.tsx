@@ -41,12 +41,7 @@ const Validator = () => {
                     >
                       Vote/ProPortion
                     </th>
-                    <th
-                      scope="col"
-                      className="text-sm font-medium text-white-900 px-6 py-4 text-left"
-                    >
-                      Apr
-                    </th>
+
                     <th
                       scope="col"
                       className="text-sm font-medium text-white-900 px-6 py-4 text-left"
