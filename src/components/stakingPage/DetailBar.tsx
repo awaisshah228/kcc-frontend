@@ -29,7 +29,7 @@ const DetailBar = () => {
     const sign: string = data?.symbol!;
     setBalance(amount);
     setSymobols(sign);
-  }, [contracts]);
+  }, [contracts, data]);
 
   return (
     <div className="flex w-full m-auto p-auto flex-row  justify-between">
