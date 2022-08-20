@@ -2,9 +2,12 @@ import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { ContractContext } from "../web3";
 import * as cheerio from "cheerio";
-import VoteModal from "./VoteModel";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
+import { useContractReads, useContractWrite } from "wagmi";
+import { AnyCnameRecord } from "dns";
+
+// import useContra
 // const getMetaData = require("metadata-scraper");
 
 type typeSingleValid = {
@@ -25,7 +28,7 @@ const SingleValid = (props: typeSingleValid) => {
 
   // const [open, setopen] = useState(false);
   let [isOpen, setIsOpen] = useState(false);
-  const [vote, setVote] = useState("");
+  const [vote, setVote] = useState<number>(0);
 
   function closeModal() {
     setIsOpen(false);
@@ -34,22 +37,41 @@ const SingleValid = (props: typeSingleValid) => {
   function openModal() {
     setIsOpen(true);
   }
-  // function onChange(e){
-  //   const re = /^[0-9\b]+$/;
-  //   if (e.target.value === '' || re.test(e.target.value)) {
-  //      setVote({value: e.target.value})
-  //   }
+
   const contracts = useContext(ContractContext);
-  const getData = async () => {
+  const { data, isError, isLoading } = useContractReads({
+    contracts: [
+      {
+        ...contracts.validatorConst,
+        functionName: "candidateInfos",
+        args: [props.address],
+      },
+      {
+        ...contracts.validatorConst,
+        functionName: "getPoolvoterNumber",
+        args: [props.address],
+      },
+      {
+        ...contracts.validatorConst,
+        functionName: "getPoolfeeShares",
+        args: [props.address],
+      },
+      {
+        ...contracts.validatorConst,
+        functionName: "isActiveValidator",
+        args: [props.address],
+      },
+    ],
+  });
+  // console.log(data);
+  // get data
+  const getData = async (data: any) => {
     try {
-      let details = await contracts.validatorContract.candidateInfos(
-        props.address
-      );
-      let url = details[0];
+      let url = data[0][0];
       let resObj: DetailsSingle = { title: "", favIcon: "", image: "" };
-      // console.log(url);
+
       await axios.get(url).then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
 
         //set a reference to the document that came back
         let $ = cheerio.load(res.data),
@@ -63,37 +85,39 @@ const SingleValid = (props: typeSingleValid) => {
           resObj.favIcon = url + $favIcon!;
           resObj.image = $ogImage!;
         }
-        console.log(resObj);
+        // console.log(resObj);
         // setdetails(resObj);
       });
 
-      let votes = await contracts.validatorContract.getPoolvoterNumber(
-        props.address
-      );
-      let commison = await contracts.validatorContract.getPoolfeeShares(
-        props.address
-      );
-      let isActive = await contracts.validatorContract.isActiveValidator(
-        props.address
-      );
-      console.log(isActive);
       setdetails({
         ...resObj,
-        vote: BigInt(votes).toString(10),
-        commison: eval(BigInt(commison).toString(10) + "/10000"),
-        status: isActive,
+        vote: BigInt(data[1]).toString(10),
+        commison: eval(BigInt(data[2]).toString(10) + "/10000"),
+        status: data[3],
       });
     } catch (error) {
       console.log(error);
     }
   };
 
+  // stake and vote
+  // const stakeVote = async () => {
+  //   try {
+  //     let tx = await contracts.validatorContract.vote(props.address, {
+  //       value: vote,
+  //     });
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
   useEffect(() => {
-    getData();
-  }, [contracts, details]);
+    getData(data);
+    console.log(data);
+  }, [contracts, data]);
   return (
     <>
-      {details && (
+      {data && (
         <>
           <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
             {props.index + 1}
@@ -199,7 +223,7 @@ const SingleValid = (props: typeSingleValid) => {
                             min="0"
                             step="1"
                             value={vote}
-                            onChange={(e) => setVote(e.target.value)}
+                            onChange={(e) => setVote(Number(e.target.value))}
                             className="
         form-control
         block
@@ -229,7 +253,7 @@ const SingleValid = (props: typeSingleValid) => {
                           className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                           onClick={closeModal}
                         >
-                          Got it, thanks!
+                          Vote
                         </button>
                       </div>
                     </Dialog.Panel>

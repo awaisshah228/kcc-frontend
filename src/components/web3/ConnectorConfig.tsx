@@ -84,6 +84,10 @@ const wagmiClient = createClient({
 export const ContractContext = createContext<any>(null);
 
 export function Web3ConnectorConfig({ children }: PropsWithChildren) {
+  const validatorConst = {
+    addressOrName: constAddress.validatorAddress,
+    contractInterface: validatorAbi,
+  };
   const provider = useProvider();
   const validatorContract = useContract({
     addressOrName: constAddress.validatorAddress,
@@ -103,7 +107,7 @@ export function Web3ConnectorConfig({ children }: PropsWithChildren) {
         coolMode
         chains={chains}
       >
-        <ContractContext.Provider value={{ validatorContract }}>
+        <ContractContext.Provider value={{ validatorContract, validatorConst }}>
           {children}
         </ContractContext.Provider>
       </RainbowKitProvider>

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useBalance, useAccount } from "wagmi";
+import { useBalance, useAccount, useContractReads } from "wagmi";
 import { ContractContext } from "../web3";
 const DetailBar = () => {
   const { address, isConnecting, isDisconnected, isConnected } = useAccount();
@@ -13,23 +13,41 @@ const DetailBar = () => {
   const [activeValidorinfo, setActiveValidtorInfo] = useState<[]>([]);
   const [totalVotes, setTotalVote] = useState<string>("0");
 
-  const getData = async () => {
-    const numer = await contracts.validatorContract.getActiveValidators();
-    const votes = await contracts.validatorContract.totalBallot();
+  const {
+    data: data2,
+    isError: isError2,
+    isLoading: isLoading2,
+  } = useContractReads({
+    contracts: [
+      {
+        ...contracts.validatorConst,
+        functionName: "getActiveValidators()",
+      },
+      {
+        ...contracts.validatorConst,
+        functionName: "totalBallot()",
+      },
+    ],
+  });
+
+  const getData = async (data2: any) => {
+    console.log(data2);
+    // const numer = await contracts.validatorContract.getActiveValidators();
+    // const votes = await contracts.validatorContract.totalBallot();
     // console.log(BigInt(votes).toString(10));
-    setTotalVote(BigInt(votes).toString(10));
-    setActiveValidtorInfo(numer);
-    setActiveValid(numer.length);
+    setActiveValidtorInfo(data2[0]);
+    setTotalVote(BigInt(data2[1]).toString(10));
+    setActiveValid(data2[0].length);
     // setActiveValid(numer.lenght);
   };
 
   useEffect(() => {
-    getData();
+    getData(data2);
     const amount = parseFloat(data?.formatted!).toFixed(5);
     const sign: string = data?.symbol!;
     setBalance(amount);
     setSymobols(sign);
-  }, [contracts, data]);
+  }, [contracts, data, data2]);
 
   return (
     <div className="flex w-full m-auto p-auto flex-row  justify-between">
