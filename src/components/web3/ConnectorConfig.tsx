@@ -7,6 +7,8 @@ import {
   darkTheme,
   Chain,
 } from "@rainbow-me/rainbowkit";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // import { Chain, getDefaultWallets } from '@rainbow-me/rainbowkit';
 import {
@@ -15,6 +17,7 @@ import {
   createClient,
   WagmiConfig,
   useContract,
+  useSigner,
   useProvider,
 } from "wagmi";
 import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
@@ -63,7 +66,7 @@ const kccChainTest: Chain = {
   testnet: true,
 };
 
-const { provider, chains } = configureChains(
+export const { provider, chains } = configureChains(
   [chain.ropsten, kccChainTest],
   [
     publicProvider(),
@@ -88,29 +91,46 @@ export function Web3ConnectorConfig({ children }: PropsWithChildren) {
     addressOrName: constAddress.validatorAddress,
     contractInterface: validatorAbi,
   };
+
   const provider = useProvider();
+
   const validatorContract = useContract({
     addressOrName: constAddress.validatorAddress,
     contractInterface: validatorAbi,
     signerOrProvider: provider,
   });
   return (
-    <WagmiConfig client={wagmiClient}>
-      <RainbowKitProvider
-        theme={darkTheme({
-          accentColor: "#FF9200",
-          accentColorForeground: "white",
-          borderRadius: "large",
-          overlayBlur: "large",
-          fontStack: "rounded",
-        })}
-        coolMode
-        chains={chains}
-      >
-        <ContractContext.Provider value={{ validatorContract, validatorConst }}>
-          {children}
-        </ContractContext.Provider>
-      </RainbowKitProvider>
-    </WagmiConfig>
+    <>
+      <WagmiConfig client={wagmiClient}>
+        <RainbowKitProvider
+          theme={darkTheme({
+            accentColor: "#FF9200",
+            accentColorForeground: "white",
+            borderRadius: "large",
+            overlayBlur: "large",
+            fontStack: "rounded",
+          })}
+          coolMode
+          chains={chains}
+        >
+          <ContractContext.Provider
+            value={{ validatorContract, validatorConst }}
+          >
+            {children}
+          </ContractContext.Provider>
+        </RainbowKitProvider>
+      </WagmiConfig>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+    </>
   );
 }

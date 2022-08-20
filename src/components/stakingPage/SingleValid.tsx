@@ -1,15 +1,23 @@
 import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
+import React, {
+  useContext,
+  useEffect,
+  useState,
+  useCallback,
+  Fragment,
+} from "react";
 import { ContractContext } from "../web3";
 import * as cheerio from "cheerio";
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment } from "react";
-import { useContractReads, useContractWrite } from "wagmi";
-import { AnyCnameRecord } from "dns";
-
-// import useContra
-// const getMetaData = require("metadata-scraper");
-
+import {
+  useContractReads,
+  useContractWrite,
+  usePrepareContractWrite,
+  useAccount,
+} from "wagmi";
+import { useSigner, useContract } from "wagmi";
+import { ethers } from "ethers";
+import { toast } from "react-toastify";
 type typeSingleValid = {
   address: string;
   index: number;
@@ -29,6 +37,9 @@ const SingleValid = (props: typeSingleValid) => {
   // const [open, setopen] = useState(false);
   let [isOpen, setIsOpen] = useState(false);
   const [vote, setVote] = useState<number>(0);
+  const { address, isConnecting, isDisconnected, isConnected } = useAccount();
+  const { data: signer, isError: errr, isLoading: loadd } = useSigner();
+  // console.log(signer);
 
   function closeModal() {
     setIsOpen(false);
@@ -63,58 +74,140 @@ const SingleValid = (props: typeSingleValid) => {
       },
     ],
   });
+  const validatorContract = useContract({
+    ...contracts.validatorConst,
+    signerOrProvider: signer,
+  });
+  // const { config } = usePrepareContractWrite({
+  //   ...contracts.validatorConst,
+  //   functionName: "vote",
+  //   args: [props.address],
+  //   overrides: {
+  //     from: address,
+  //     value: vote,
+  //   },
+  //   // args: [props.address],
+  // });
+  // const { write } = useContractWrite(config);
+  // const contractWrite = useContractWrite({
+  //   mode: 'recklesslyUnprepared',
+  //   addressOrName: '0xecb504d39723b0be0e3a9aa33d646642d1051ee1',
+  //   contractInterface: wagmigotchiABI,
+  //   functionName: 'feed',
+  // })
+
+  const {
+    data: data3,
+    isLoading: Loadinng3,
+    isSuccess,
+    write,
+  } = useContractWrite({
+    mode: "recklesslyUnprepared",
+    ...contracts.validatorConst,
+    functionName: "vote",
+    args: [props.address],
+    overrides: {
+      from: address,
+      value: ethers.utils.parseEther(vote.toString()),
+    },
+    onError(error: any) {
+      // console.log(JSON.stringify(error.reason));
+      toast(error.reason, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    },
+  });
+  const {
+    data: data4,
+    isLoading: Loadinng4,
+    isSuccess: isSuccess4,
+    write: revokeVote,
+  } = useContractWrite({
+    mode: "recklesslyUnprepared",
+    ...contracts.validatorConst,
+    functionName: "revokeVote",
+    args: [props.address, vote],
+    onError(error: any) {
+      // console.log(JSON.stringify(error.reason));
+      toast(error.reason, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    },
+  });
   // console.log(data);
   // get data
-  const getData = async (data: any) => {
-    try {
-      let url = data[0][0];
-      let resObj: DetailsSingle = { title: "", favIcon: "", image: "" };
+  const getData = useCallback(
+    async (data: any) => {
+      try {
+        let url = data[0][0];
+        let resObj: DetailsSingle = { title: "", favIcon: "", image: "" };
 
-      await axios.get(url).then((res) => {
-        // console.log(res.data);
+        await axios.get(url).then((res) => {
+          // console.log(res.data);
 
-        //set a reference to the document that came back
-        let $ = cheerio.load(res.data),
-          //create a reference to the meta elements
-          $title = $("head title").text(),
-          $favIcon = $('link[rel="icon"]').attr("href"),
-          $images = $("img"),
-          $ogImage = $('meta[property="og:image"]').attr("content");
-        if ($title) {
-          resObj.title = $title;
-          resObj.favIcon = url + $favIcon!;
-          resObj.image = $ogImage!;
-        }
-        // console.log(resObj);
-        // setdetails(resObj);
-      });
+          //set a reference to the document that came back
+          let $ = cheerio.load(res.data),
+            //create a reference to the meta elements
+            $title = $("head title").text(),
+            $favIcon = $('link[rel="icon"]').attr("href"),
+            $images = $("img"),
+            $ogImage = $('meta[property="og:image"]').attr("content");
+          if ($title) {
+            resObj.title = $title;
+            resObj.favIcon = url + $favIcon!;
+            resObj.image = $ogImage!;
+          }
+          // console.log(resObj);
+          // setdetails(resObj);
+        });
 
-      setdetails({
-        ...resObj,
-        vote: BigInt(data[1]).toString(10),
-        commison: eval(BigInt(data[2]).toString(10) + "/10000"),
-        status: data[3],
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+        setdetails({
+          ...resObj,
+          vote: BigInt(data[1]).toString(10),
+          commison: eval(BigInt(data[2]).toString(10) + "/10000"),
+          status: data[3],
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    [data]
+  );
 
   // stake and vote
-  // const stakeVote = async () => {
-  //   try {
-  //     let tx = await contracts.validatorContract.vote(props.address, {
-  //       value: vote,
-  //     });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  // const stakeVote = useCallback(
+  //   async (ans: any) => {
+  //     try {
+  //       // co
+  //       // console.log(ans);
+  //       console.log(localStorage.getItem(signer));
+  //       // let tx = validatorContract.vote(props.address, {
+  //       //   value: 10 * 18,
+  //       // });
+  //       // console.log(tx);s
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   },
+  //   [contracts]
+  // );
 
   useEffect(() => {
     getData(data);
     console.log(data);
-  }, [contracts, data]);
+  }, [contracts, data, vote]);
   return (
     <>
       {data && (
@@ -247,13 +340,20 @@ const SingleValid = (props: typeSingleValid) => {
                         </div>
                       </div>
 
-                      <div className="mt-4">
+                      <div className="mt-4 flex gap-3">
                         <button
                           type="button"
                           className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                          onClick={closeModal}
+                          onClick={() => write?.()}
                         >
                           Vote
+                        </button>
+                        <button
+                          type="button"
+                          className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                          onClick={() => revokeVote?.()}
+                        >
+                          Revoke Vote
                         </button>
                       </div>
                     </Dialog.Panel>
@@ -264,6 +364,7 @@ const SingleValid = (props: typeSingleValid) => {
           </Transition>
         </>
       )}
+      {/* ToastContainer/ */}
     </>
   );
 };

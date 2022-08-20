@@ -45,7 +45,7 @@ const DetailBar = () => {
     getData(data2);
     const amount = parseFloat(data?.formatted!).toFixed(5);
     const sign: string = data?.symbol!;
-    setBalance(amount);
+    setBalance(amount ?? 0);
     setSymobols(sign);
   }, [contracts, data, data2]);
 
