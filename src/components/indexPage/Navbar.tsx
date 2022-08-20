@@ -4,6 +4,7 @@ import { XIcon } from "@heroicons/react/solid";
 import React, { useContext, useState } from "react";
 import { IsSideNavOpen } from "../../pages";
 import { ConnectWalletBtn } from "../utils";
+import Link from "next/link";
 
 export function Navbar() {
   const { isSideNavOpen, setSideNavOpen } = useContext(IsSideNavOpen);
@@ -36,14 +37,12 @@ function Logo() {
 export function Navigations() {
   return (
     <div className="[&_a]:cursor-pointer flex lg:flex-row flex-col lg:space-x-10 h-auto w-max lg:justify-center items-center font-normal relative -top-[2px] text-base text-secondary-alfa">
-      <a>Home</a>
-      <a>Staking</a>
-      <a>My Vote</a>
+      <Link href="/">Home</Link>
+      <Link href="/staking">Staking</Link>
+      <Link href="/my-vote">My Vote</Link>
     </div>
   );
 }
-
-
 
 function MobileResponsive() {
   const [isOpen, setOpen] = useState<Boolean>(false);
