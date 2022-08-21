@@ -97,10 +97,10 @@ const SingleValid = (props: typeSingleValid) => {
   // })
 
   const {
-    data: data3,
-    isLoading: Loadinng3,
+    data: dataWrite,
+    isLoading: LoadingVote,
     isSuccess,
-    write,
+    write: castVote,
   } = useContractWrite({
     mode: "recklesslyUnprepared",
     ...contracts.validatorConst,
@@ -125,14 +125,37 @@ const SingleValid = (props: typeSingleValid) => {
   });
   const {
     data: data4,
-    isLoading: Loadinng4,
-    isSuccess: isSuccess4,
+    isLoading: LoadingRevoke,
+    isSuccess: isSuccessRevoke,
     write: revokeVote,
   } = useContractWrite({
     mode: "recklesslyUnprepared",
     ...contracts.validatorConst,
     functionName: "revokeVote",
     args: [props.address, vote],
+    onError(error: any) {
+      // console.log(JSON.stringify(error.reason));
+      toast(error.reason, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    },
+  });
+  const {
+    data: dataWithdraw,
+    isLoading: Loadinngwtihdraw,
+    isSuccess: isSuccessWithdrwa,
+    write: withdraw,
+  } = useContractWrite({
+    mode: "recklesslyUnprepared",
+    ...contracts.validatorConst,
+    functionName: "withdraw",
+    args: [props.address],
     onError(error: any) {
       // console.log(JSON.stringify(error.reason));
       toast(error.reason, {
@@ -344,7 +367,7 @@ const SingleValid = (props: typeSingleValid) => {
                         <button
                           type="button"
                           className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                          onClick={() => write?.()}
+                          onClick={() => castVote?.()}
                         >
                           Vote
                         </button>
@@ -354,6 +377,13 @@ const SingleValid = (props: typeSingleValid) => {
                           onClick={() => revokeVote?.()}
                         >
                           Revoke Vote
+                        </button>
+                        <button
+                          type="button"
+                          className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                          onClick={() => withdraw?.()}
+                        >
+                          Withdraw
                         </button>
                       </div>
                     </Dialog.Panel>
