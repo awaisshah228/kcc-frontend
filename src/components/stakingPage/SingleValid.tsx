@@ -59,7 +59,7 @@ const SingleValid = (props: typeSingleValid) => {
       },
       {
         ...contracts.validatorConst,
-        functionName: "getPoolvoterNumber",
+        functionName: "getPoolsuppliedBallot",
         args: [props.address],
       },
       {
@@ -195,6 +195,7 @@ const SingleValid = (props: typeSingleValid) => {
           // console.log(resObj);
           // setdetails(resObj);
         });
+        console.log(data);
 
         setdetails({
           ...resObj,
