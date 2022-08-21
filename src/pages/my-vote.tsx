@@ -16,7 +16,7 @@ const Vote: NextPage = () => {
         />
       </Head>
       <Layout>
-        <div className="m-5 p-5 flex flex-col gap-5 justify-center">
+        <div className="m-5 p-5  gap-5  ">
           <VotingDetail></VotingDetail>
           {/* <Validator /> */}
         </div>

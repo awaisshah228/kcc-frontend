@@ -2,7 +2,7 @@ import Image from "next/image";
 import { HiOutlineMenu } from "react-icons/hi";
 import { XIcon } from "@heroicons/react/solid";
 import React, { useContext, useState } from "react";
-import { IsSideNavOpen } from "../../pages";
+import { IsSideNavOpen } from "../../layout/Layout";
 import { ConnectWalletBtn } from "../utils";
 import Link from "next/link";
 
@@ -12,7 +12,7 @@ export function Navbar() {
     <div
       className={`${
         isSideNavOpen ? "opacity-30 " : ""
-      } relative lg:absolute top-0 w-full flex justify-between items-center px-0 pl-2 md:pl-2 md:pr-8 lg:px-[5.4em]`}
+      } relative lg:absolute top-0 w-full flex justify-between items-center px-0 pl-2 md:pl-2 md:pr-8 lg:px-[5.4em] z-50`}
     >
       <div className="flex space-x-16 scale-95">
         <Logo />

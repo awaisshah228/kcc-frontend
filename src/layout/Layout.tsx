@@ -23,7 +23,7 @@ export default function Layout({ children }: PropsWithChildren) {
   const hello = trpc.useQuery(["example.hello", { text: "from tRPC" }]);
 
   return (
-    <div>
+    <>
       {isSideNavOpen ? <SideNavbar /> : ""}
       <main
         className={`${
@@ -33,9 +33,11 @@ export default function Layout({ children }: PropsWithChildren) {
         <IsSideNavOpen.Provider value={{ isSideNavOpen, setSideNavOpen }}>
           <Navbar />
         </IsSideNavOpen.Provider>
-        <div className="p-auto h-screen mt-24">{children}</div>
-        <Footer />
+        <div className="p-auto h-screen mt-24">
+          {children}
+          <Footer />
+        </div>
       </main>
-    </div>
+    </>
   );
 }

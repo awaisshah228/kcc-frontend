@@ -11,15 +11,17 @@ import {
   SideNavbar,
 } from "../components";
 import FAQ from "../components/indexPage/FAQ";
+import Layout from "../layout/Layout";
+
 import { trpc } from "../utils/trpc";
 
-export const IsSideNavOpen = createContext<{
-  isSideNavOpen: Boolean;
-  setSideNavOpen: any;
-}>({
-  isSideNavOpen: false,
-  setSideNavOpen: () => {},
-});
+// export const IsSideNavOpen = createContext<{
+//   isSideNavOpen: Boolean;
+//   setSideNavOpen: any;
+// }>({
+//   isSideNavOpen: false,
+//   setSideNavOpen: () => {},
+// });
 
 const Home: NextPage = () => {
   const [isSideNavOpen, setSideNavOpen] = useState<Boolean>(false);
@@ -35,22 +37,26 @@ const Home: NextPage = () => {
           content="EGC Staking | Buy KCS to Vote | KuCoin Community Chain"
         />
       </Head>
-      {isSideNavOpen ? <SideNavbar /> : ""}
-      <main
-        className={`${
-          isSideNavOpen ? "overflow-y-hidden h-full opacity-4 " : "h-auto"
-        } z-0 min-h-[calc(-320px_+_100vh)]  w-full text-white text-base duration-500 transition-all `}
-      >
-        <IsSideNavOpen.Provider value={{ isSideNavOpen, setSideNavOpen }}>
-          <Navbar />
-        </IsSideNavOpen.Provider>
+      <Layout>
         <HeroSection />
         <Features />
         <FAQ />
         <CallToAction />
         <AuditInstitution />
-        <Footer />
-      </main>
+      </Layout>
+
+      {/* {isSideNavOpen ? <SideNavbar /> : ""} */}
+      {/* <main
+        className={`${
+          isSideNavOpen ? "overflow-y-hidden h-full opacity-4 " : "h-auto"
+        } z-0 min-h-[calc(-320px_+_100vh)]  w-full text-white text-base duration-500 transition-all `}
+      > */}
+      {/* <IsSideNavOpen.Provider value={{ isSideNavOpen, setSideNavOpen }}>
+          <Navbar />
+        </IsSideNavOpen.Provider> */}
+
+      {/* <Footer /> */}
+      {/* </main> */}
     </div>
   );
 };
