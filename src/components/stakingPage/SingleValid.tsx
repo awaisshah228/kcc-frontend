@@ -29,6 +29,7 @@ type DetailsSingle = {
   vote?: string;
   commison?: string;
   status?: string;
+  eps?: string;
 };
 
 const SingleValid = (props: typeSingleValid) => {
@@ -72,29 +73,15 @@ const SingleValid = (props: typeSingleValid) => {
         functionName: "isActiveValidator",
         args: [props.address],
       },
+      {
+        ...contracts.validatorConst,
+        functionName: "getPoolaccRewardPerShare",
+        args: [props.address],
+      },
     ],
   });
-  const validatorContract = useContract({
-    ...contracts.validatorConst,
-    signerOrProvider: signer,
-  });
-  // const { config } = usePrepareContractWrite({
-  //   ...contracts.validatorConst,
-  //   functionName: "vote",
-  //   args: [props.address],
-  //   overrides: {
-  //     from: address,
-  //     value: vote,
-  //   },
-  //   // args: [props.address],
-  // });
-  // const { write } = useContractWrite(config);
-  // const contractWrite = useContractWrite({
-  //   mode: 'recklesslyUnprepared',
-  //   addressOrName: '0xecb504d39723b0be0e3a9aa33d646642d1051ee1',
-  //   contractInterface: wagmigotchiABI,
-  //   functionName: 'feed',
-  // })
+
+  // vote
 
   const {
     data: dataWrite,
@@ -123,6 +110,8 @@ const SingleValid = (props: typeSingleValid) => {
       });
     },
   });
+
+  //revoke
   const {
     data: data4,
     isLoading: LoadingRevoke,
@@ -146,6 +135,7 @@ const SingleValid = (props: typeSingleValid) => {
       });
     },
   });
+  //withdraw
   const {
     data: dataWithdraw,
     isLoading: Loadinngwtihdraw,
@@ -202,6 +192,7 @@ const SingleValid = (props: typeSingleValid) => {
           vote: BigInt(data[1]).toString(10),
           commison: eval(BigInt(data[2]).toString(10) + "/10000"),
           status: data[3],
+          eps: eval(BigInt(data[4]).toString(10) + "/10**12"),
         });
       } catch (error) {
         console.log(error);
@@ -245,6 +236,9 @@ const SingleValid = (props: typeSingleValid) => {
           </td>
           <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
             {details?.vote}
+          </td>
+          <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+            {details?.eps}
           </td>
           <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
             {details?.commison}
@@ -368,21 +362,57 @@ const SingleValid = (props: typeSingleValid) => {
                         <button
                           type="button"
                           className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                          onClick={() => castVote?.()}
+                          onClick={() =>
+                            isConnected
+                              ? castVote?.()
+                              : toast("Connect Wallet Before", {
+                                  position: "top-right",
+                                  autoClose: 5000,
+                                  hideProgressBar: false,
+                                  closeOnClick: true,
+                                  pauseOnHover: true,
+                                  draggable: true,
+                                  progress: undefined,
+                                })
+                          }
                         >
                           Vote
                         </button>
                         <button
                           type="button"
                           className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                          onClick={() => revokeVote?.()}
+                          onClick={() =>
+                            isConnected
+                              ? revokeVote?.()
+                              : toast("Connect Wallet Before", {
+                                  position: "top-right",
+                                  autoClose: 5000,
+                                  hideProgressBar: false,
+                                  closeOnClick: true,
+                                  pauseOnHover: true,
+                                  draggable: true,
+                                  progress: undefined,
+                                })
+                          }
                         >
                           Revoke Vote
                         </button>
                         <button
                           type="button"
                           className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                          onClick={() => withdraw?.()}
+                          onClick={() =>
+                            isConnected
+                              ? withdraw?.()
+                              : toast("Connect Wallet Before", {
+                                  position: "top-right",
+                                  autoClose: 5000,
+                                  hideProgressBar: false,
+                                  closeOnClick: true,
+                                  pauseOnHover: true,
+                                  draggable: true,
+                                  progress: undefined,
+                                })
+                          }
                         >
                           Withdraw
                         </button>

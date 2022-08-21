@@ -30,7 +30,7 @@ const VotingDetail = () => {
     let poolVoted = [];
     // console.log(BigInt(data2[0].ballot).toString(10));
 
-    data2.forEach((item: any) => {
+    data2?.forEach((item: any) => {
       totalVote = +BigInt(item.ballot).toString(10) ?? 0;
     });
     setpoolsVoted(data2);
@@ -99,7 +99,7 @@ const VotingDetail = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {poolsVoted.map((value, key) => {
+                    {poolsVoted?.map((value, key) => {
                       return (
                         <tr className="bg-white" key={key}>
                           <SinglePoolVoted key={key} pool={value} index={key} />

@@ -67,10 +67,10 @@ const kccChainTest: Chain = {
 };
 
 export const { provider, chains } = configureChains(
-  [chain.ropsten, kccChainTest],
+  [chain.ropsten],
   [
     publicProvider(),
-    jsonRpcProvider({ rpc: (chain) => ({ http: chain.rpcUrls.default }) }),
+    // jsonRpcProvider({ rpc: (chain) => ({ http: chain.rpcUrls.default }) }),
   ]
 );
 
