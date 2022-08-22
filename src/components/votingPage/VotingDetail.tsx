@@ -96,6 +96,12 @@ const VotingDetail = () => {
                       >
                         Pending Reward
                       </th>
+                      <th
+                        scope="col"
+                        className="text-sm font-medium text-white-900 px-6 py-4 text-left"
+                      >
+                        Action
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
