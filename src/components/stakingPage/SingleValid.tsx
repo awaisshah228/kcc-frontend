@@ -18,7 +18,6 @@ import {
 import { useSigner, useContract } from "wagmi";
 import { ethers } from "ethers";
 import { toast } from "react-toastify";
-import { ProgressBar } from "react-loader-spinner";
 type typeSingleValid = {
   address: string;
   index: number;
@@ -226,17 +225,6 @@ const SingleValid = (props: typeSingleValid) => {
   }, [contracts, data, vote]);
   return (
     <>
-      {LoadingVote && (
-        <ProgressBar
-          height="80"
-          width="80"
-          ariaLabel="progress-bar-loading"
-          wrapperStyle={{}}
-          wrapperClass="progress-bar-wrapper"
-          borderColor="#F4442E"
-          barColor="#51E5FF"
-        />
-      )}
       {data && (
         <>
           <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
