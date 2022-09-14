@@ -31,10 +31,10 @@ const Home: NextPage = () => {
   return (
     <div className="h-full w-full">
       <Head>
-        <title>EGC Staking | Buy KCS to Vote | KuCoin Community Chain</title>
+        <title>EGC Staking | Buy EGC to Vote | KuCoin Community Chain</title>
         <meta
           name="description"
-          content="EGC Staking | Buy KCS to Vote | KuCoin Community Chain"
+          content="EGC Staking | Buy EGC to Vote | KuCoin Community Chain"
         />
       </Head>
       <Layout>

@@ -13,7 +13,7 @@ export function Features() {
             dashedLine: true,
             image_URL: "/assets/icons/connect-wallet.png",
             title: "1. Connect Wallet",
-            slug: "Buy KCS to join stake",
+            slug: "Buy EGC to join stake",
           }}
         />
         <StepCard
@@ -21,7 +21,7 @@ export function Features() {
             dashedLine: true,
             image_URL: "/assets/icons/stake-to-vote.png",
             title: "2. Stake to vote",
-            slug: "Vote for master node candidates by stake KCS, 1 KCS represents 1 vote.",
+            slug: "Vote for master node candidates by stake EGC, 1 EGC represents 1 vote.",
           }}
         />
         <StepCard

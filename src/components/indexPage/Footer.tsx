@@ -8,10 +8,10 @@ export function Footer() {
       <div className="lg:!flex hidden container footer justify-between py-12 text-base-content border-b border-b-white/50">
         <div className="w-44">
           <Image
-            src="/assets/icons/logo.svg"
+            src="/assets/icons/logo.png"
             className="object-contain"
-            height={40}
-            width={90}
+            height={120}
+            width={160}
             alt="logo"
           />
         </div>
@@ -44,7 +44,7 @@ export function Footer() {
         <DisclosureFooter key={0} {...{ FooterData }} />
       </div>
       <div className="lg:text-left text-center mt-12 lg:mt-5 mb-6 lg:mb-10 font-roboto font-light container text-xs lg:text-sm text-white/80">
-        CopyRight © 2022 staking.kcc.io All Rights Reserved.
+        CopyRight © 2022 staking.EGC.io All Rights Reserved.
       </div>
     </footer>
   );

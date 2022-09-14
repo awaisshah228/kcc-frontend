@@ -29,7 +29,7 @@ function Logo() {
   return (
     <div className="flex w-full h-full items-center">
       <MobileResponsive />
-      <Image src="/assets/icons/logo.svg" height={80} width={90} alt="Logo" />
+      <Image src="/assets/icons/logo.png" height={120} width={160} alt="Logo" />
     </div>
   );
 }

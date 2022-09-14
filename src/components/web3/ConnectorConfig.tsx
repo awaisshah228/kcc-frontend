@@ -27,40 +27,40 @@ import constAddress from "../../constonts/address";
 
 // const kccChain: Chain = {
 //   id: 321,
-//   name: "KCC",
-//   network: "KCC-MAINNET",
+//   name: "EGC",
+//   network: "EGC-MAINNET",
 //   iconUrl: "https://example.com/icon.svg",
 //   iconBackground: "#fff",
 //   nativeCurrency: {
 //     decimals: 18,
-//     name: "KCC",
-//     symbol: "KCS",
+//     name: "EGC",
+//     symbol: "EGC",
 //   },
 //   rpcUrls: {
-//     default: "https://rpc-mainnet.kcc.network",
+//     default: "https://rpc-mainnet.EGC.network",
 //   },
 //   blockExplorers: {
-//     default: { name: "KCC Explorer", url: "https://explorer.kcc.io/en" },
+//     default: { name: "EGC Explorer", url: "https://explorer.EGC.io/en" },
 //     // etherscan: { name: "SnowTrace", url: "https://snowtrace.io" },
 //   },
 //   testnet: false,
 // };
 const kccChainTest: Chain = {
   id: 322,
-  name: "KCC-TEST",
-  network: "KCC-TESTNET",
+  name: "EGC-TEST",
+  network: "EGC-TESTNET",
   iconUrl: "https://example.com/icon.svg",
   iconBackground: "#fff",
   nativeCurrency: {
     decimals: 18,
-    name: "KCC",
-    symbol: "KCS",
+    name: "EGC",
+    symbol: "EGC",
   },
   rpcUrls: {
-    default: "https://rpc-testnet.kcc.network",
+    default: "https://rpc-testnet.EGC.network",
   },
   blockExplorers: {
-    default: { name: "Scan Testnet", url: "https://scan-testnet.kcc.network" },
+    default: { name: "Scan Testnet", url: "https://scan-testnet.EGC.network" },
     // etherscan: { name: "SnowTrace", url: "https://snowtrace.io" },
   },
   testnet: true,

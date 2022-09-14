@@ -17,21 +17,21 @@ const FAQData: FAQDataType[] = [
   {
     id: "disclosure-panel-1",
     isOpen: false,
-    Question: "1.How to participate in KCS staking?",
+    Question: "1.How to participate in EGC staking?",
     Answer: () => {
       return (
         <div className="space-y-2">
           <div className="">
-            By staking KCS, users can participate in node elections on KuCoin
-            Community Chain (KCC) and earn rewards. Staking KCS is critical for
+            By staking EGC, users can participate in node elections on KuCoin
+            Community Chain (EGC) and earn rewards. Staking EGC is critical for
             securing the network.
           </div>
           <div className="">
-            Validators can stake KCS to themselves or receive votes from users.
+            Validators can stake EGC to themselves or receive votes from users.
           </div>
           <div className="">
-            Users can vote for validators by staking KCS, in which 1 KCS
-            represents 1 vote. If users redeem votes, their KCS will also be
+            Users can vote for validators by staking EGC, in which 1 EGC
+            represents 1 vote. If users redeem votes, their EGC will also be
             returned.
           </div>
         </div>
@@ -58,14 +58,14 @@ const FAQData: FAQDataType[] = [
   {
     id: "disclosure-panel-3",
     isOpen: false,
-    Question: "3.How to redeem staked KCS?",
+    Question: "3.How to redeem staked EGC?",
     Answer: () => {
       return (
         <div className="space-y-2">
           <div className="">{`1.Click "My Vote"`}</div>
           <div className="">{`2.Click "Redeem" to stop staking`}</div>
           <div className="">
-            {`3.KCS will be available to withdraw after a 3-day lockup period. During the lockup period, no more rewards will be generated.`}
+            {`3.EGC will be available to withdraw after a 3-day lockup period. During the lockup period, no more rewards will be generated.`}
           </div>
         </div>
       );
