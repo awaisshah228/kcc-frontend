@@ -164,7 +164,8 @@ const SingleValid = (props: typeSingleValid) => {
   const getData = useCallback(
     async (data: any) => {
       try {
-        let url = data[0][0];
+        // let url = data[0][0];
+        let url = "https://awaisshah228.vercel.app/";
         let resObj: DetailsSingle = { title: "", favIcon: "", image: "" };
 
         await axios.get(url).then((res) => {

@@ -25,10 +25,30 @@ import { publicProvider } from "wagmi/providers/public";
 import validatorAbi from "../../constonts/abi/Validators.json";
 import constAddress from "../../constonts/address";
 
-// const kccChain: Chain = {
-//   id: 321,
-//   name: "EGC",
-//   network: "EGC-MAINNET",
+const egcChain: Chain = {
+  id: 790,
+  name: "EgonChain",
+  network: "EgonChain",
+  iconUrl: "https://example.com/icon.svg",
+  iconBackground: "#fff",
+  nativeCurrency: {
+    decimals: 18,
+    name: "EGC",
+    symbol: "EGON",
+  },
+  rpcUrls: {
+    default: "https://egoncoin.org",
+  },
+  blockExplorers: {
+    default: { name: "EGC Explorer", url: "http://80.240.30.222:4000" },
+    // etherscan: { name: "SnowTrace", url: "https://snowtrace.io" },
+  },
+  testnet: false,
+};
+// const kccChainTest: Chain = {
+//   id: 322,
+//   name: "EGC-TEST",
+//   network: "EGC-TESTNET",
 //   iconUrl: "https://example.com/icon.svg",
 //   iconBackground: "#fff",
 //   nativeCurrency: {
@@ -37,40 +57,20 @@ import constAddress from "../../constonts/address";
 //     symbol: "EGC",
 //   },
 //   rpcUrls: {
-//     default: "https://rpc-mainnet.EGC.network",
+//     default: "https://rpc-testnet.EGC.network",
 //   },
 //   blockExplorers: {
-//     default: { name: "EGC Explorer", url: "https://explorer.EGC.io/en" },
+//     default: { name: "Scan Testnet", url: "https://scan-testnet.EGC.network" },
 //     // etherscan: { name: "SnowTrace", url: "https://snowtrace.io" },
 //   },
-//   testnet: false,
+//   testnet: true,
 // };
-const kccChainTest: Chain = {
-  id: 322,
-  name: "EGC-TEST",
-  network: "EGC-TESTNET",
-  iconUrl: "https://example.com/icon.svg",
-  iconBackground: "#fff",
-  nativeCurrency: {
-    decimals: 18,
-    name: "EGC",
-    symbol: "EGC",
-  },
-  rpcUrls: {
-    default: "https://rpc-testnet.EGC.network",
-  },
-  blockExplorers: {
-    default: { name: "Scan Testnet", url: "https://scan-testnet.EGC.network" },
-    // etherscan: { name: "SnowTrace", url: "https://snowtrace.io" },
-  },
-  testnet: true,
-};
 
 export const { provider, chains } = configureChains(
-  [chain.ropsten],
+  [egcChain],
   [
-    publicProvider(),
-    // jsonRpcProvider({ rpc: (chain) => ({ http: chain.rpcUrls.default }) }),
+    // publicProvider(),
+    jsonRpcProvider({ rpc: (chain) => ({ http: chain.rpcUrls.default }) }),
   ]
 );
 

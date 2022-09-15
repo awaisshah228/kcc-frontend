@@ -35,7 +35,7 @@ const DetailBar = () => {
     // const numer = await contracts.validatorContract.getActiveValidators();
     // const votes = await contracts.validatorContract.totalBallot();
     // console.log(BigInt(votes).toString(10));
-    setActiveValidtorInfo(data2[0]);
+    setActiveValidtorInfo(data2["https://awaisshah228.vercel.app/"]);
     setTotalVote(BigInt(data2[1]).toString(10));
     setActiveValid(data2[0].length);
     // setActiveValid(numer.lenght);
