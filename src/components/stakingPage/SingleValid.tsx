@@ -164,28 +164,34 @@ const SingleValid = (props: typeSingleValid) => {
   const getData = useCallback(
     async (data: any) => {
       try {
-        // let url = data[0][0];
-        let url = "https://awaisshah228.vercel.app/";
+        let url = data[0][0];
+        // let url = "https://awaisshah228.vercel.app/";
         let resObj: DetailsSingle = { title: "", favIcon: "", image: "" };
+        if (url) {
+          await axios.get(url).then((res) => {
+            // console.log(res.data);
 
-        await axios.get(url).then((res) => {
-          // console.log(res.data);
+            //set a reference to the document that came back
+            let $ = cheerio.load(res.data),
+              //create a reference to the meta elements
+              $title = $("head title").text(),
+              $favIcon = $('link[rel="icon"]').attr("href"),
+              $images = $("img"),
+              $ogImage = $('meta[property="og:image"]').attr("content");
+            if ($title) {
+              resObj.title = $title;
+              resObj.favIcon = url + $favIcon!;
+              resObj.image = $ogImage!;
+            }
+            // console.log(resObj);
+            // setdetails(resObj);
+          });
+        } else {
+          resObj.title = props.address;
+          // resObj.favIcon = url + $favIcon!;
+          // resObj.image = $ogImage!;
+        }
 
-          //set a reference to the document that came back
-          let $ = cheerio.load(res.data),
-            //create a reference to the meta elements
-            $title = $("head title").text(),
-            $favIcon = $('link[rel="icon"]').attr("href"),
-            $images = $("img"),
-            $ogImage = $('meta[property="og:image"]').attr("content");
-          if ($title) {
-            resObj.title = $title;
-            resObj.favIcon = url + $favIcon!;
-            resObj.image = $ogImage!;
-          }
-          // console.log(resObj);
-          // setdetails(resObj);
-        });
         console.log(data);
 
         setdetails({
